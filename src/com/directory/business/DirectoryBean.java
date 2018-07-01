@@ -17,7 +17,7 @@ import com.directory.data.Contact;
  *
  */
 @Stateless
-public class DirectoryBean implements Directory {
+public class DirectoryBean implements DirectoryLocal, DirectoryRemote {
 	/**
 	 * 
 	 * DirectoryBean: entityManager
@@ -72,8 +72,8 @@ public class DirectoryBean implements Directory {
 	 * 
 	 * @see com.directory.business.Directory#getContacts()
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Contact> getContacts() {
 		Query query = this.entityManager.createQuery("SELECT c FROM Contact c");
 		return query.getResultList();
