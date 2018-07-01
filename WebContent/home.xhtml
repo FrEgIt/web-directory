@@ -1,13 +1,93 @@
 <!DOCTYPE html>
 <html 	xmlns:h="http://java.sun.com/jsf/html"
 		xmlns:f="http://java.sun.com/jsf/core"
-		xmlns:ui="http://primafaces.org/ui">
+		xmlns:ui="http://primefaces.org/ui">
 <h:head>
+
 	<title>Phones' directory</title>
+	
 </h:head>
-	<h1>Welcome, this a phones' web directory</h1>
 
 <h:body>
+	
+	<h1>Welcome, this is a phone's directory</h1>
+	
+	<ui:dataTable value="#{directory.contacts}" var="contact" id="contactTable">
+		<ui:column>
+			<f:facet name="header">
+				<h:outputText var="FirstName"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{contact.firstName}"></h:outputText>
+		</ui:column>
+		<ui:column>
+			<f:facet name="header">
+				<h:outputText var="LastName"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{contact.lastName}"></h:outputText>
+		</ui:column>
+		<ui:column>
+			<f:facet name="header">
+				<h:outputText var="PhoneNumber"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{contact.phoneNumber}"></h:outputText>
+		</ui:column>
+		<ui:column>
+			<f:facet name="header">
+				<h:outputText var="Mail"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{contact.mail}"></h:outputText>
+		</ui:column>
+	</ui:dataTable>
+	
+	<h:form id="formInsertion">
+		<ui:dialog widgetVar="contactInsertion" width="400px" height="500px" modal="true">
+			<ui:panel id="detailInsertion">
+				<h:inputHidden id="id" value="#{directory.contact.id}" />
+ 				<ui:messages style="color:red" autoUpdate="true" />
+				<ui:panelGrid colums="3">
+				
+				<h:outputLabel value="Fisrt name" />
+				<ui:inputText id="firstName"
+				 value="#{directory.contact.firstName}"
+				 required="true" 
+				 requiredMessage="Your first name is required." />
+				<ui:message for="firstName"/>
+				
+				<h:outputLabel value="Last name" />
+				<ui:inputText id="lastName"
+				 value="#{directory.contact.lastName}"
+				 required="true" 
+				 requiredMessage="Your last name is required." />
+				<ui:message for="lastName"/>
+				
+				<h:outputLabel value="Phone number" />
+				<ui:inputText id="phoneNumber"
+				 value="#{directory.contact.phoneNumber}"
+				 required="true" 
+				 requiredMessage="Your phone number is required." />
+				<ui:message for="phoneNumber"/>
+				
+				<h:outputLabel value="Mail" />
+				<ui:inputText id="mail"
+				 value="#{directory.contact.mail}"
+				 required="true" 
+				 requiredMessage="Your mail is required." 
+				 />
+				<ui:message for="mail"/>
+				
+				</ui:panelGrid>
+				
+				 <ui:commandButton 
+				  process="@([id$=formInsertion])"
+				  actionListener="#{directory.save}" 
+				  oncomplete="if(!args.validationFailed){ PF('contactInsertion').hide();} else {PF('contactInsertion').show();}"
+				  table="@[id$contactTable]"
+				  value="Save" />
+				
+			</ui:panel>
+		</ui:dialog>
+		<ui:commandButton type="button" onclick="PF('contactInsertion').show();" value="Add contact"/>
+	</h:form>
 	
 </h:body>
 </html>

@@ -15,7 +15,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table
+@Table(name = "contact")
 public class Contact {
 
 	private Integer id;
@@ -28,7 +28,7 @@ public class Contact {
 	 * @return the id
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_contact")
 	public Integer getId() {
 		return this.id;

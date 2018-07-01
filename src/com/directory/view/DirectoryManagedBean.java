@@ -4,9 +4,11 @@
 package com.directory.view;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 import com.directory.business.DirectoryLocal;
 import com.directory.data.Contact;
@@ -16,6 +18,7 @@ import com.directory.data.Contact;
  *
  */
 @ManagedBean(name = "directory")
+@RequestScoped
 public class DirectoryManagedBean implements Serializable {
 
 	/**
@@ -37,6 +40,32 @@ public class DirectoryManagedBean implements Serializable {
 	 */
 	private Contact contact;
 
+	public DirectoryManagedBean() {
+		this.contact = new Contact();
+	}
+
+	/**
+	 * 
+	 */
+	public void save() {
+		this.businessDirectory.addContact(this.contact);
+	}
+
+	/**
+	 * @return the businessDirectory
+	 */
+	public DirectoryLocal getBusinessDirectory() {
+		return this.businessDirectory;
+	}
+
+	/**
+	 * @param businessDirectory
+	 *            the businessDirectory to set
+	 */
+	public void setBusinessDirectory(DirectoryLocal businessDirectory) {
+		this.businessDirectory = businessDirectory;
+	}
+
 	/**
 	 * @return the contact
 	 */
@@ -52,4 +81,10 @@ public class DirectoryManagedBean implements Serializable {
 		this.contact = contact;
 	}
 
+	/**
+	 * @return
+	 */
+	public List<Contact> getContacts() {
+		return this.businessDirectory.getContacts();
+	}
 }
